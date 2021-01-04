@@ -11,11 +11,12 @@ type TextDependencies struct {
 	// e.g no-reply@example.com
 	From string
 
+	// SenderName is the name fo the email sender.
+	SenderName string
+
 	// To is the receiver/receivers of the email
 	// e.g user@example.com.
-	// if the receivers are more one seperate them with
-	// a comma and space e.g user1@example.com, user2@example.com
-	To string
+	To []string
 
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
@@ -38,8 +39,8 @@ type TextMailer interface {
 // the emails can also be sent with attachments.
 func (m *mailer) SendText(dep TextDependencies) error {
 	mail := gomail.NewMessage()
-	mail.SetHeader("From", dep.From)
-	mail.SetHeader("To", dep.To)
+	mail.SetAddressHeader("From", dep.From, dep.SenderName)
+	// mail.SetHeader("To", dep.To)
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody("text/plain", dep.Body)
 	m.addAttachments(mail, dep.Attachments)
