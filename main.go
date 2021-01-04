@@ -34,6 +34,16 @@ func NewMailer(config SMTPConfig) Mailer {
 	}
 }
 
+// addRecipients formats a slice of string containing recipients email
+// and then adds it to the email.
+func (m *mailer) addRecipients(mail *gomail.Message, recipients []string) {
+	addresses := make([]string, len(recipients))
+	for i, recipient := range recipients {
+		addresses[i] = mail.FormatAddress(recipient, "")
+	}
+	mail.SetHeader("To", addresses...)
+}
+
 // addAttachments adds attachments to an email before it is sent
 // out.
 func (m *mailer) addAttachments(mail *gomail.Message, attachments []string) {
