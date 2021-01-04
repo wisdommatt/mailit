@@ -1,5 +1,12 @@
 package mailit
 
+import (
+	"bytes"
+	"text/template"
+
+	"gopkg.in/gomail.v2"
+)
+
 // HTMLDependencies is the struct that holds dependencies for
 // a html email. e.g template, sender/receiver email etc.
 type HTMLDependencies struct {
@@ -38,6 +45,27 @@ type HTMLMailer interface {
 // SendHTML sends a email using a HTML template.
 // It uses the informations in dep to forward the email
 // and it also supports attachments.
-func (m *mailer) SendHTML(dep HTMLDependencies) (err error) {
-	return
+func (m *mailer) SendHTML(dep HTMLDependencies) error {
+	temp, err := template.ParseFiles(dep.Template)
+	if err != nil {
+		return err
+	}
+	var templateBuffer bytes.Buffer
+	err = temp.Execute(&templateBuffer, dep.TemplateData)
+	if err != nil {
+		return err
+	}
+	tempString := templateBuffer.String()
+	mail := gomail.NewMessage()
+	mail.SetHeader("From", dep.From)
+	mail.SetHeader("To", dep.To)
+	mail.SetHeader("Subject", dep.Subject)
+	mail.SetBody("text/plain", tempString)
+	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
+	err := mailDialer.DialAndSend(mail)
+	if err != nil {
+		return err
+	}
+	return nil
+	return nil
 }
