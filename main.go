@@ -3,7 +3,7 @@ package mailit
 // Mailer is the interface that wraps SendText and SendHTML
 // methods.
 type Mailer interface {
-	SendText(dep TextDependencies) error
+	TextMailer
 }
 
 // SMTPConfig holds smtp configurations that a required to send the
@@ -27,10 +27,4 @@ func NewMailer(config SMTPConfig) Mailer {
 	return &mailer{
 		smtpConfig: config,
 	}
-}
-
-// SendText sends a plain text emails.
-// the emails can also be sent with attachments.
-func (mailer *mailer) SendText(dep TextDependencies) (err error) {
-	return
 }
