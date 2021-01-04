@@ -1,6 +1,10 @@
 package mailit
 
-import "gopkg.in/gomail.v2"
+import (
+	"log"
+
+	"gopkg.in/gomail.v2"
+)
 
 // Mailer is the interface that wraps SendText and SendHTML
 // methods.
@@ -36,6 +40,7 @@ func NewMailer(config SMTPConfig) Mailer {
 // out.
 func (m *mailer) addAttachments(mail *gomail.Message, attachments []string) {
 	for _, attachment := range attachments {
+		log.Println("attaching ", attachment)
 		mail.Attach(attachment)
 	}
 }
