@@ -29,3 +29,8 @@ type HTMLDependencies struct {
 	// 		[]{"assets/docs/welcome.pdf", "assets/images/admin.jpeg"}
 	Attachments []string
 }
+
+// HTMLMailer is the interface that wraps SendHTML method.
+type HTMLMailer interface {
+	SendHTML(dep HTMLDependencies) error
+}
