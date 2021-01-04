@@ -62,10 +62,9 @@ func (m *mailer) SendHTML(dep HTMLDependencies) error {
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody("text/plain", tempString)
 	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
-	err := mailDialer.DialAndSend(mail)
+	err = mailDialer.DialAndSend(mail)
 	if err != nil {
 		return err
 	}
-	return nil
 	return nil
 }
