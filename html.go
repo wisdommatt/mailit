@@ -15,10 +15,8 @@ type HTMLDependencies struct {
 	From string
 
 	// To is the receiver/receivers of the email
-	// e.g user@example.com.
-	// if the receivers are more one seperate them with
-	// a comma and space e.g user1@example.com, user2@example.com
-	To string
+	// e.g []{"user@example.com", "user2@example.com"}.
+	To []string
 
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
@@ -58,9 +56,10 @@ func (m *mailer) SendHTML(dep HTMLDependencies) error {
 	tempString := templateBuffer.String()
 	mail := gomail.NewMessage()
 	mail.SetHeader("From", dep.From)
-	mail.SetHeader("To", dep.To)
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody("text/html", tempString)
+	m.addRecipients(mail, dep.To)
+	m.addAttachments(mail, dep.Attachments)
 	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
 	err = mailDialer.DialAndSend(mail)
 	if err != nil {

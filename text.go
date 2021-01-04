@@ -15,7 +15,7 @@ type TextDependencies struct {
 	SenderName string
 
 	// To is the receiver/receivers of the email
-	// e.g user@example.com.
+	// e.g []{"user@example.com", "user2@example.com"}.
 	To []string
 
 	// Subject is the subject of the email e.g Hello NewsLetter
