@@ -1,8 +1,6 @@
 package mailit
 
 import (
-	"log"
-
 	"gopkg.in/gomail.v2"
 )
 
@@ -40,7 +38,6 @@ func NewMailer(config SMTPConfig) Mailer {
 // out.
 func (m *mailer) addAttachments(mail *gomail.Message, attachments []string) {
 	for _, attachment := range attachments {
-		log.Println("attaching ", attachment)
 		mail.Attach(attachment)
 	}
 }
