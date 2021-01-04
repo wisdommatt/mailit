@@ -1,5 +1,7 @@
 package mailit
 
+import "gopkg.in/gomail.v2"
+
 // Mailer is the interface that wraps SendText and SendHTML
 // methods.
 type Mailer interface {
@@ -27,5 +29,13 @@ type mailer struct {
 func NewMailer(config SMTPConfig) Mailer {
 	return &mailer{
 		smtp: config,
+	}
+}
+
+// AddAttachments adds attachments to an email before it is sent
+// out.
+func (m *mailer) AddAttachments(mail *gomail.Message, attachments []string) {
+	for _, attachment := range attachments {
+		mail.Attach(attachment)
 	}
 }
