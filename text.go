@@ -42,7 +42,7 @@ func (m *mailer) SendText(dep TextDependencies) error {
 	mail.SetHeader("To", dep.To)
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody("text/plain", dep.Body)
-	m.AddAttachments(mail, dep.Attachments)
+	m.addAttachments(mail, dep.Attachments)
 	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
 	err := mailDialer.DialAndSend(mail)
 	if err != nil {

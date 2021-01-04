@@ -32,9 +32,9 @@ func NewMailer(config SMTPConfig) Mailer {
 	}
 }
 
-// AddAttachments adds attachments to an email before it is sent
+// addAttachments adds attachments to an email before it is sent
 // out.
-func (m *mailer) AddAttachments(mail *gomail.Message, attachments []string) {
+func (m *mailer) addAttachments(mail *gomail.Message, attachments []string) {
 	for _, attachment := range attachments {
 		mail.Attach(attachment)
 	}
