@@ -4,6 +4,7 @@ package mailit
 // methods.
 type Mailer interface {
 	TextMailer
+	HTMLMailer
 }
 
 // SMTPConfig holds smtp configurations that a required to send the

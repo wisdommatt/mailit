@@ -34,3 +34,10 @@ type HTMLDependencies struct {
 type HTMLMailer interface {
 	SendHTML(dep HTMLDependencies) error
 }
+
+// SendHTML sends a email using a HTML template.
+// It uses the informations in dep to forward the email
+// and it also supports attachments.
+func (mailer *mailer) SendHTML(dep HTMLDependencies) (err error) {
+	return
+}
