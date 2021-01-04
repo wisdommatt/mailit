@@ -1,8 +1,8 @@
 package mailit
 
-// TextDependencies is the struct that holds dependencies for
-// a plain text email. e.g message body, sender/receiver email etc.
-type TextDependencies struct {
+// HTMLDependencies is the struct that holds dependencies for
+// a html email. e.g template, sender/receiver email etc.
+type HTMLDependencies struct {
 	// From is the email address of the sender
 	// e.g no-reply@example.com
 	From string
@@ -16,22 +16,16 @@ type TextDependencies struct {
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
 
-	// Body is the body of the email e.g Thanks for signing up
-	Body string
+	// Template is the directory location of the HTML template
+	// e.g templates/welcome.html
+	Template string
+
+	// TemplateData is the data/content you want to pass to the HTML
+	// template e.g User Info, Order Details etc
+	TemplateData interface{}
 
 	// Attachments should hold the list of attachments to send with
 	// the email if there is any.
 	// 		[]{"assets/docs/welcome.pdf", "assets/images/admin.jpeg"}
 	Attachments []string
-}
-
-// TextMailer is the interface that wraps SendText method.
-type TextMailer interface {
-	SendText(dep TextDependencies) error
-}
-
-// SendText sends a plain text emails.
-// the emails can also be sent with attachments.
-func (mailer *mailer) SendText(dep TextDependencies) (err error) {
-	return
 }
