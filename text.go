@@ -11,7 +11,7 @@ type TextDependencies struct {
 	// e.g user@example.com.
 	// if the receivers are more one seperate them with
 	// a comma and space e.g user1@example.com, user2@example.com
-	To []string
+	To string
 
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
