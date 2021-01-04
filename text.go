@@ -1,5 +1,9 @@
 package mailit
 
+import (
+	"gopkg.in/gomail.v2"
+)
+
 // TextDependencies is the struct that holds dependencies for
 // a plain text email. e.g message body, sender/receiver email etc.
 type TextDependencies struct {
@@ -32,6 +36,16 @@ type TextMailer interface {
 
 // SendText sends a plain text emails.
 // the emails can also be sent with attachments.
-func (mailer *mailer) SendText(dep TextDependencies) (err error) {
-	return
+func (m *mailer) SendText(dep TextDependencies) error {
+	mail := gomail.NewMessage()
+	mail.SetHeader("From", dep.From)
+	mail.SetHeader("To", dep.To)
+	mail.SetHeader("Subject", dep.Subject)
+	mail.SetBody("text/plain", dep.Body)
+	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
+	err := mailDialer.DialAndSend(mail)
+	if err != nil {
+		return err
+	}
+	return nil
 }

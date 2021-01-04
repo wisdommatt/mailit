@@ -16,7 +16,7 @@ type SMTPConfig struct {
 
 // mailer the object that implements the Mailer interface.
 type mailer struct {
-	smtpConfig SMTPConfig
+	smtp SMTPConfig
 }
 
 // NewMailer returns a new mailer which implements the Mailer
@@ -26,6 +26,6 @@ type mailer struct {
 // configurations for the mail.
 func NewMailer(config SMTPConfig) Mailer {
 	return &mailer{
-		smtpConfig: config,
+		smtp: config,
 	}
 }
