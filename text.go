@@ -40,9 +40,9 @@ type TextMailer interface {
 func (m *mailer) SendText(dep TextDependencies) error {
 	mail := gomail.NewMessage()
 	mail.SetAddressHeader("From", dep.From, dep.SenderName)
-	// mail.SetHeader("To", dep.To)
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody("text/plain", dep.Body)
+	m.addRecipients(mail, dep.To)
 	m.addAttachments(mail, dep.Attachments)
 	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)
 	err := mailDialer.DialAndSend(mail)
