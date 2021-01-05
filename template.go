@@ -7,9 +7,9 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-// HTMLDependencies is the struct that holds dependencies for
-// a html email. e.g template, sender/receiver email etc.
-type HTMLDependencies struct {
+// TemplateDependencies is the struct that holds dependencies for
+// a template based email. e.g template directory, sender/receiver email etc.
+type TemplateDependencies struct {
 	// From is the email address of the sender
 	// e.g no-reply@example.com
 	From string
@@ -21,11 +21,15 @@ type HTMLDependencies struct {
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
 
-	// Template is the directory location of the HTML template
-	// e.g templates/welcome.html
+	// ContentType is the content type of the template e.g
+	// text/plain or text/html etc
+	ContentType string
+
+	// Template is the directory location of the template
+	// e.g templates/welcome.html, templates/hello.txt
 	Template string
 
-	// TemplateData is the data/content you want to pass to the HTML
+	// TemplateData is the data/content you want to pass to the
 	// template e.g User Info, Order Details etc
 	TemplateData interface{}
 
@@ -35,15 +39,15 @@ type HTMLDependencies struct {
 	Attachments []string
 }
 
-// HTMLMailer is the interface that wraps SendHTML method.
-type HTMLMailer interface {
-	SendHTML(dep HTMLDependencies) error
+// TemplateMailer is the interface that wraps SendTemplate method.
+type TemplateMailer interface {
+	SendTemplate(dep TemplateDependencies) error
 }
 
-// SendHTML sends a email using a HTML template.
+// SendTemplate sends a email using a Text/HTML template.
 // It uses the informations in dep to forward the email
 // and it also supports attachments.
-func (m *mailer) SendHTML(dep HTMLDependencies) error {
+func (m *mailer) SendTemplate(dep TemplateDependencies) error {
 	temp, err := template.ParseFiles(dep.Template)
 	if err != nil {
 		return err
@@ -57,7 +61,7 @@ func (m *mailer) SendHTML(dep HTMLDependencies) error {
 	mail := gomail.NewMessage()
 	mail.SetHeader("From", dep.From)
 	mail.SetHeader("Subject", dep.Subject)
-	mail.SetBody("text/html", tempString)
+	mail.SetBody(dep.ContentType, tempString)
 	m.addRecipients(mail, dep.To)
 	m.addAttachments(mail, dep.Attachments)
 	mailDialer := gomail.NewDialer(m.smtp.Host, m.smtp.Port, m.smtp.Username, m.smtp.Password)

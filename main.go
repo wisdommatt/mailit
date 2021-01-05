@@ -4,11 +4,11 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-// Mailer is the interface that wraps SendText and SendHTML
-// methods.
+// Mailer is the interface that wraps TextMailer and
+// TemplateMailer.
 type Mailer interface {
 	TextMailer
-	HTMLMailer
+	TemplateMailer
 }
 
 // SMTPConfig holds smtp configurations that a required to send the
