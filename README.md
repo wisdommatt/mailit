@@ -7,7 +7,7 @@ Mailit is an easy to use mail library to send emails.
 ## Features
 Mailit supports:
 - Plain text emails
-- HTML template based emails
+- Text / HTML template based emails
 - Attachments
 - Sending emails to multiple recipients
 
@@ -58,15 +58,16 @@ We also recommend you use the how to guide on this page because Mailit does basi
     > ##### Sending HTML template email
 
     ```go
-        htmlDep := mailit.HTMLDependencies{
+        tempDep := mailit.TemplateDependencies{
             From:        "sender@domain.com",
             To:          []string{"user1@domain.com", "user2@domain.com", "user3@domain.com"},
             Subject:     "Welcome to Mailit",
+            ContentType: "text/html",
             Template: "templates/welcome.html",
             TemplateData: "Any data",
             Attachments: []string{"attachments/1.txt", "attachments/2.txt"},
         }
-        err := mailer.SendHTML(htmlDep)
+        err := mailer.SendTemplate(tempDep)
     ```
 
 ## Dependencies
