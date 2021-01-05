@@ -91,7 +91,9 @@ We also recommend you use the how to guide on this page because Mailit does basi
         }
         err := mailer.SendTemplate(tempDep)
     ```
-
+***
+> NOTE: You will access the template data the way it is access usually in Go templates e.g {{ .Name }} or {{ .Email }}
+***
 ## Dependencies
 
 - https://github.com/go-gomail/gomail
