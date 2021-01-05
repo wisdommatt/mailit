@@ -28,7 +28,7 @@ We also recommend you use the how to guide on this page because Mailit does basi
 
 ***
 - #### Step 1: Initialize a mailer variable and pass in SMTP configs.
-    >>> #### <span style="color:green"> Note: This is usually done just once<span>
+    > #### <span style="color:green"> Note: This is usually done just once<span>
 
     ```go
         smtpConf := mailit.SMTPConfig{
@@ -41,7 +41,7 @@ We also recommend you use the how to guide on this page because Mailit does basi
     ```
 
 - #### Step 2: Send email 
-    >>> ##### Sending plain text email
+    > ##### Sending plain text email
 
     ```go
         textDep := mailit.TextDependencies{
@@ -55,7 +55,7 @@ We also recommend you use the how to guide on this page because Mailit does basi
     ```
     ***
 
-    >>> ##### Sending HTML template email
+    > ##### Sending HTML template email
 
     ```go
         htmlDep := mailit.HTMLDependencies{
