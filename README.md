@@ -24,6 +24,8 @@ We also recommend you use the how to guide on this page because Mailit does basi
 * Send Template Based Emails
 
 ## How To Use Mailit
+######  Feel free to copy and paste the codes
+
 ***
 - #### Step 1: Initialize a mailer variable and pass in SMTP configs.
     >>> #### <span style="color:green"> Note: This is usually done just once<span>
@@ -38,7 +40,7 @@ We also recommend you use the how to guide on this page because Mailit does basi
         mailer := mailit.NewMailer(smtpConf)
     ```
 
-- #### Step 2: Send email
+- #### Step 2: Send email 
     >>> ##### Sending plain text email
 
     ```go
