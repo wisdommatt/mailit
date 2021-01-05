@@ -70,6 +70,28 @@ We also recommend you use the how to guide on this page because Mailit does basi
         err := mailer.SendTemplate(tempDep)
     ```
 
+    ***
+
+    > ##### Sending Text template email
+
+    ```go
+        tempDep := mailit.TemplateDependencies{
+            From:        "sender@domain.com",
+            To:          []string{"user1@domain.com", "user2@domain.com", "user3@domain.com"},
+            Subject:     "Welcome to Mailit",
+            ContentType: "text/plain",
+            Template: "templates/sample.txt",
+            TemplateData: struct{
+                Name, Email string
+            }{
+                Name: "Wisdom Matt",
+                Email: "user@example.com",
+            },
+            Attachments: []string{"attachments/1.txt", "attachments/2.txt"},
+        }
+        err := mailer.SendTemplate(tempDep)
+    ```
+
 ## Dependencies
 
 - https://github.com/go-gomail/gomail
