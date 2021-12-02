@@ -18,6 +18,9 @@ type TemplateDependencies struct {
 	// e.g []{"user@example.com", "user2@example.com"}.
 	To []string
 
+	// SenderName is the name fo the email sender.
+	SenderName string
+
 	// Subject is the subject of the email e.g Hello NewsLetter
 	Subject string
 
@@ -59,7 +62,7 @@ func (m *mailer) SendTemplate(dep TemplateDependencies) error {
 	}
 	tempString := templateBuffer.String()
 	mail := gomail.NewMessage()
-	mail.SetHeader("From", dep.From)
+	mail.SetHeader("From", dep.From, dep.SenderName)
 	mail.SetHeader("Subject", dep.Subject)
 	mail.SetBody(dep.ContentType, tempString)
 	m.addRecipients(mail, dep.To)
